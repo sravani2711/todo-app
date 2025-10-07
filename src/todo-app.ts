@@ -13,18 +13,36 @@ export class TodoApplication {
     public init() {
         console.log("Welcome to TODO Application");
 
-        const todo: ToDo = {
+
+        this.todoService.displayToDos();
+        this.todoService.create({
             id: 1,
             name: 'First todo',
             description: "sample description",
             status: 'TODO',
             createdAt: new Date()
-        }
+        });
+
+        this.todoService.create({
+            id: 2,
+            name: 'Create Todo application',
+            description: "Implement findById method",
+            status: 'TODO',
+            createdAt: new Date()
+        });
 
         this.todoService.displayToDos();
-        const updatedToDos = this.todoService.create(todo);
+
+        const foundTodo = this.todoService.findById(2);
+
+        this.todoService.print(foundTodo);
+
+        this.todoService.update(1, 'DONE');
         this.todoService.displayToDos();
 
+        this.todoService.deleteById(1);
+        this.todoService.displayToDos();
 
+        this.todoService.findById(1);
     }
 }

@@ -14,12 +14,39 @@ export class ToDoService {
         return this.todos;
     }
 
-    public count(): number {
-        return this.todos.length
+    findById(id: number): ToDo | undefined {
+        console.log(`Looking for a todo with id: ${id}`)
+        const todo = this.todos.filter((todo) => id === todo.id)[0];
+        if (todo) {
+            console.log(`Todo with id ${id} is found:`, todo);
+        } else {
+            console.log(`Todo with id ${id} is not found`);
+        }
+        return todo;
     }
 
-    private print(todo: ToDo) {
-        console.log(`{"name": ${todo.name}, "description": ${todo.description}, "status": ${todo.status}, "createdAt": ${todo.createdAt}}`);
+    update(id: number, status: 'TODO' | "DONE") {
+        console.log(`Updating todo with id: ${id} with status: ${status}`)
+        this.todos.forEach(todo => {
+            if (id === todo.id) {
+                todo.status = status;
+            }
+        });
+    }
+
+    public count(): number {
+        console.log(`Counting the number of todos in the list`)
+        return this.todos.length;
+    }
+
+    public print(todo: ToDo | undefined) {
+        if (todo)
+            console.log(todo);
+    }
+
+    public deleteById(id: number) {
+        console.log(`Deleting todo with id: ${id}`);
+        this.todos = this.todos.filter((todo) => todo.id !== id);
     }
 
 
